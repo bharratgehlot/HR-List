@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Bharrat Gehlot",
+    "number": "9244123562",
+    "company": "Net-Flow Solutions",
+    "location": "Sreyal Namkin",
+    "email": "bharratgehlot@proton.me",
+    "status": "active"
+  },
+  {
+    "name": "Titiksha Patil",
+    "number": "9244123562",
+    "company": "ITGeeks",
+    "location": "Dewas",
+    "email": "hrd@itgeeks.com",
+    "status": "active"
+  },
+  {
+    "name": "Titiksha Patil\t",
+    "number": "9244123562\t",
+    "company": "ITGeeks\t",
+    "location": "Dewas",
+    "email": "hrd@itgeeks.com",
+    "status": "active",
+    "photo": "/uploads/1759939000288_Titiksha_Patil_.jpg"
+  }
+]
