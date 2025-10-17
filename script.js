@@ -21,8 +21,10 @@ document.getElementById('hrForm').addEventListener('submit', async function(e) {
         number: document.getElementById('number').value,
         company: document.getElementById('company').value,
         location: document.getElementById('location').value,
+        position: document.getElementById('position').value,
         email: document.getElementById('email').value,
         status: document.getElementById('status').value,
+        url: document.getElementById('url').value,
         photo: photoData
     };
     
@@ -42,7 +44,7 @@ function convertToBase64(file) {
     });
 }
 
-// Save contact to JSON file via server
+// Save contact to PostgreSQL via server
 async function saveContact(contact) {
     await fetch('/api/contacts', {
         method: 'POST',
@@ -51,7 +53,7 @@ async function saveContact(contact) {
     });
 }
 
-// Load contacts from JSON file via server
+// Load contacts from PostgreSQL via server
 async function loadContacts() {
     const response = await fetch('/api/contacts');
     contacts = await response.json();
@@ -69,14 +71,20 @@ function displayContacts() {
             ? `<img src="${contact.photo}" class="profile-pic" alt="Profile">` 
             : `<img src="placeholder.svg" class="profile-pic" alt="No Photo">`;
         
+        const urlCell = contact.url 
+            ? `<a href="${contact.url}" target="_blank">${contact.url}</a>`
+            : 'N/A';
+        
         row.innerHTML = `
             <td>${photoCell}</td>
             <td>${contact.name}</td>
             <td>${contact.number}</td>
             <td>${contact.company}</td>
             <td>${contact.location}</td>
+            <td>${contact.position || 'N/A'}</td>
             <td>${contact.email}</td>
             <td>${contact.status}</td>
+            <td>${urlCell}</td>
         `;
     });
 }

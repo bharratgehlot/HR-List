@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -73,19 +73,34 @@ h2 {
 
 .table-container {
     margin-top: 30px;
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
+    min-width: 1200px;
     border-collapse: collapse;
     border: 2px solid #000000;
+    table-layout: fixed;
 }
 
 th, td {
-    padding: 12px;
+    padding: 8px;
     text-align: left;
     border: 1px solid #000000;
+    word-wrap: break-word;
+    overflow: hidden;
 }
+
+th:nth-child(1), td:nth-child(1) { width: 60px; } /* Photo */
+th:nth-child(2), td:nth-child(2) { width: 120px; } /* Name */
+th:nth-child(3), td:nth-child(3) { width: 100px; } /* Number */
+th:nth-child(4), td:nth-child(4) { width: 150px; } /* Company */
+th:nth-child(5), td:nth-child(5) { width: 100px; } /* Location */
+th:nth-child(6), td:nth-child(6) { width: 120px; } /* Position */
+th:nth-child(7), td:nth-child(7) { width: 180px; } /* Email */
+th:nth-child(8), td:nth-child(8) { width: 80px; } /* Status */
+th:nth-child(9), td:nth-child(9) { width: 150px; } /* URL */
 
 th {
     background-color: #000000;
@@ -107,6 +122,30 @@ tr:hover {
     border-radius: 50%;
     object-fit: cover;
     border: 0.5px solid #000000;
+    display: block;
+    margin: 0 auto;
+}
+
+/* URL links styling */
+td a {
+    color: #0066cc;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Status styling */
+td:nth-child(8) {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Center photo column */
+th:nth-child(1), td:nth-child(1) {
+    text-align: center;
 }
 
 
@@ -120,5 +159,22 @@ tr:hover {
     .form-row select,
     .form-row button {
         width: 100%;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 6px;
+    }
+    
+    .profile-pic {
+        width: 30px;
+        height: 30px;
     }
 }
