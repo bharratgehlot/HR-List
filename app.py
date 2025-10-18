@@ -1,17 +1,26 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
 import base64
 from datetime import datetime
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import cloudinary
+import cloudinary.uploader
+
 
 app = Flask(__name__)
-UPLOADS_DIR = 'uploads'
 
-if not os.path.exists(UPLOADS_DIR):
-    os.makedirs(UPLOADS_DIR)
+# Config cloudinary
+
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
 
 def get_connection():
     database_url = os.getenv('DATABASE_URL')
@@ -27,9 +36,6 @@ def index():
 def static_files(filename):
     return send_from_directory('.', filename)
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(UPLOADS_DIR, filename)
 
 @app.route('/api/contacts', methods=['GET'])
 def get_contacts():
@@ -48,16 +54,19 @@ def get_contacts():
 def add_contact():
     try:
         contact = request.json
+        photo_url = None
         
+        # Upload to Cloudinary if photo exists in user input
         if contact.get('photo'):
-            photo_data = contact['photo'].split(',')[1]
-            filename = f"{int(datetime.now().timestamp())}_{contact['name'].replace(' ', '_')}.jpg"
-            filepath = os.path.join(UPLOADS_DIR, filename)
-            
-            with open(filepath, 'wb') as f:
-                f.write(base64.b64decode(photo_data))
-            
-            contact['photo'] = f'/uploads/{filename}'
+            try:
+                result = cloudinary.uploader.upload(
+                    contact['photo'],
+                    folder="hr_contacts",
+                    public_id=f"{contact['name'].replace(' ', '_')}_{int(time.time())}"
+                )
+                photo_url = result['secure_url']
+            except Exception as e:
+                print(f"Cloudinary upload failed: {e}")    
         
         conn = get_connection()
         cursor = conn.cursor()
@@ -65,7 +74,7 @@ def add_contact():
             INSERT INTO contacts (photo, name, company, location, position, number, email, status, url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
-            contact.get('photo'),
+            photo_url,
             contact['name'],
             contact['company'],
             contact['location'],

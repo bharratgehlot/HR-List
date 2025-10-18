@@ -169,10 +169,20 @@ tr:hover {
     display: block;
     margin: 0 auto;
     transition: transform 0.3s ease;
+    background-color: #f8f9fa;
+    /* Fallback for broken images */
+    min-width: 45px;
+    min-height: 45px;
 }
 
 .profile-pic:hover {
     transform: scale(1.1);
+}
+
+/* Fallback when image fails to load */
+.profile-pic[src="placeholder.svg"] {
+    border-color: #bdc3c7;
+    opacity: 0.7;
 }
 
 /* URL links styling */
@@ -214,6 +224,13 @@ td:nth-child(8):contains("unknown") {
 /* Center photo column */
 th:nth-child(1), td:nth-child(1) {
     text-align: center;
+    vertical-align: middle;
+}
+
+/* Ensure photo cell has proper dimensions */
+td:nth-child(1) {
+    padding: 8px;
+    min-width: 70px;
 }
 
 /* Touch-friendly improvements for mobile */

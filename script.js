@@ -55,9 +55,14 @@ async function saveContact(contact) {
 
 // Load contacts from PostgreSQL via server
 async function loadContacts() {
-    const response = await fetch('/api/contacts');
-    contacts = await response.json();
-    displayContacts();
+    try {
+        const response = await fetch('/api/contacts');
+        contacts = await response.json();
+        console.log('Loaded contacts:', contacts);
+        displayContacts();
+    } catch (error) {
+        console.error('Error loading contacts:', error);
+    }
 }
 
 // Display contacts in table
@@ -67,9 +72,14 @@ function displayContacts() {
     
     contacts.forEach(contact => {
         const row = tbody.insertRow();
-        const photoCell = contact.photo 
-            ? `<img src="${contact.photo}" class="profile-pic" alt="Profile">` 
-            : `<img src="placeholder.svg" class="profile-pic" alt="No Photo">`;
+        
+        // Create photo cell - check if photo path exists in database
+        let photoCell;
+        if (contact.photo && contact.photo.trim() !== '' && contact.photo !== 'null') {
+            photoCell = `<img src="${contact.photo}" class="profile-pic" alt="Profile" onerror="this.src='placeholder.svg'; this.onerror=null;">`;
+        } else {
+            photoCell = `<img src="placeholder.svg" class="profile-pic" alt="No Photo">`;
+        }
         
         const urlCell = contact.url 
             ? `<a href="${contact.url}" target="_blank">${contact.url}</a>`
