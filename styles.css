@@ -165,7 +165,6 @@ tr:hover {
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #3498db;
     display: block;
     margin: 0 auto;
     transition: transform 0.3s ease;
