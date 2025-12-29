@@ -92,6 +92,25 @@ def add_contact():
         print(f"Error adding contact: {e}")
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/debug')
+def debug():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM contacts")
+        count = cursor.fetchone()[0]
+        conn.close()
+        return f"Database connected. {count} contacts found."
+    except Exception as e:
+        return f"Database error: {e}"
+    
+@app.route('/env-debug')
+def env_debug():
+    db_url = os.getenv('DATABASE_URL')
+    return f"DATABASE_URL: {db_url[:50]}..."  # Show first 50 chars for security
+
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 3000))
     app.run(host='0.0.0.0', port=port, debug=True)
