@@ -1,7 +1,0 @@
-database name: hr_list
-
-render creditials
-
-DB Name = hr_list
-Internal Database URL: postgresql://hr_list_user:8k18dvkCP6Aa1nI82B8mOONwWsKxtESz@dpg-d3p678umcj7s739qnbjg-a/hr_list
-External Database URL: postgresql://hr_list_user:8k18dvkCP6Aa1nI82B8mOONwWsKxtESz@dpg-d3p678umcj7s739qnbjg-a.oregon-postgres.render.com/hr_list

@@ -1,2 +1,0 @@
-DAY 1: Initial Setup - 2 hours
-DAY 2: Database Configuration - 2 hours

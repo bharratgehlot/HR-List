@@ -62,20 +62,6 @@ def insert_contact(photo, name, company, location, position, number, email, stat
     except Exception as e:
         print(f"❌ Failed to add contact: {e}")
         
-def insert_sample_data():
-    sample_contacts = [
-        ('/uploads/1759939000288_Titiksha_Patil_.jpg', 'Titiksha Patil', 'ITGeeks', 'Dewas', 'HR Manager', '9244123562', 'hrd@itgeeks.com', 'active', 'https://itgeeks.com'),
-        ('/uploads/1760152890_Bharrat_Gehlot.jpg', 'Bharrat Gehlot', 'Net-Flow Solutions', 'Sreyal Namkin', 'Developer', '9244123562', 'bharratgehlot@proton.me', 'not active', 'https://netflow.com'),
-        (None, 'John Smith', 'Tech Corp', 'Mumbai', 'Recruiter', '9876543210', 'john@techcorp.com', 'active', 'https://techcorp.com'),
-        (None, 'Sarah Johnson', 'StartupXYZ', 'Bangalore', 'Talent Acquisition', '8765432109', 'sarah@startupxyz.com', 'active', 'https://startupxyz.com'),
-        (None, 'Mike Wilson', 'Global Tech', 'Delhi', 'HR Director', '7654321098', 'mike@globaltech.com', 'status unknown', 'https://globaltech.com')
-    ]
-    
-    for contact in sample_contacts:
-        insert_contact(*contact)
-        
-        
 
 if __name__ == '__main__':
     create_table()
-    insert_sample_data()
